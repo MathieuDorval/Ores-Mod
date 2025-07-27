@@ -1,0 +1,13 @@
+{
+  "itemGroup.ores": "Example Mod Tab",
+  "block.ores.example_block": "Example Block",
+  "item.ores.example_item": "Example Item",
+
+  "ores.configuration.title": "Ores Mod Configs",
+  "ores.configuration.section.ores.common.toml": "Ores Mod Configs",
+  "ores.configuration.section.ores.common.toml.title": "Ores Mod Configs",
+  "ores.configuration.items": "Item List",
+  "ores.configuration.logDirtBlock": "Log Dirt Block",
+  "ores.configuration.magicNumberIntroduction": "Magic Number Text",
+  "ores.configuration.magicNumber": "Magic Number"
+}
