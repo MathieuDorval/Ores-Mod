@@ -49,7 +49,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "ores:raw_copper"
+              "name": "minecraft:raw_copper"
             }
           ]
         }

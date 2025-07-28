@@ -1,5 +1,6 @@
 package com.ores.datagen;
 
+import com.ores.OresMod;
 import com.ores.core.Materials;
 import com.ores.core.Variants;
 import com.ores.registries.ModBlocks;
@@ -17,15 +18,17 @@ import java.util.function.Supplier;
 
 public class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, "ores");
+        super(output, lookupProvider, OresMod.MODID);
     }
 
+    @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         for (Materials material : Materials.values()) {
             for (Variants variant : material.getVariants()) {
                 String blockId = variant.getFormattedId(material.getId());
                 Supplier<Block> blockSupplier = ModBlocks.getBlock(blockId);
 
+                // Ignore les variantes qui ne sont pas des blocs
                 if (blockSupplier == null) {
                     continue;
                 }
@@ -39,6 +42,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                     int maxToolLevel = Math.max(matProps.toolLevel(), varProps.toolLevel());
                     this.applyToolTags(blockSupplier.get(), varProps.tool(), maxToolLevel);
 
+                    // Ajoute le tag pour les balises (beacons)
                     if (material.getItemProps().beacon() && varProps.beacon()) {
                         this.tag(BlockTags.BEACON_BASE_BLOCKS).add(blockSupplier.get());
                     }
@@ -48,6 +52,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                     Materials.OreProps matProps = material.getOreProps();
 
                     int maxToolLevel = Math.max(matProps.toolLevel(), varProps.toolLevel());
+                    // Les minerais sont toujours considérés comme minables à la pioche pour les tags
                     this.applyToolTags(blockSupplier.get(), Materials.Tools.PICKAXE, maxToolLevel);
                 }
             }
@@ -55,6 +60,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     private void applyToolTags(Block block, Materials.Tools toolType, int maxToolLevel) {
+        // Applique le tag de l'outil approprié
         switch (toolType) {
             case PICKAXE -> this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block);
             case SHOVEL -> this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(block);
@@ -63,6 +69,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
             case SWORD -> this.tag(BlockTags.SWORD_EFFICIENT).add(block);
         }
 
+        // Applique le tag du niveau de l'outil requis
         switch (maxToolLevel) {
             case 1 -> this.tag(BlockTags.NEEDS_STONE_TOOL).add(block);
             case 2 -> this.tag(BlockTags.NEEDS_IRON_TOOL).add(block);

@@ -27,14 +27,20 @@ public class Registry {
         ITEMS_TO_REGISTER.clear();
 
         for (Materials material : Materials.values()) {
+            List<String> exclusions = null;
+            if (material.getVanillaExclusions() != null && material.getVanillaExclusions().excludedVariantIds() != null) {
+                exclusions = material.getVanillaExclusions().excludedVariantIds();
+            }
             for (Variants variant : material.getVariants()) {
                 String id = variant.getFormattedId(material.getId());
+                if (exclusions != null && exclusions.contains(id)) {
+                    continue;
+                }
                 var category = variant.getCategory();
 
                 if (category == Variants.Category.ITEM) {
                     Item.Properties itemProperties = new Item.Properties();
                     combineItemProperties(itemProperties, material.getItemProps(), variant.getItemProps());
-                    // MODIFICATION: Passe la catégorie lors de la création
                     ITEMS_TO_REGISTER.add(new ItemRegistryEntry(id, category, itemProperties));
                 } else {
                     BlockBehaviour.Properties blockProperties = BlockBehaviour.Properties.of();
@@ -67,7 +73,6 @@ public class Registry {
                             blockConstructor = (props) -> new DropExperienceBlock(xpRange, props);
                         }
                     }
-                    // MODIFICATION: Passe la catégorie lors de la création
                     BLOCKS_TO_REGISTER.add(new BlockRegistryEntry(id, category, blockConstructor, blockProperties, blockItemProperties));
                 }
             }

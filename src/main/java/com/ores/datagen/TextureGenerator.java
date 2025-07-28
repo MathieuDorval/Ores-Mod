@@ -10,7 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -52,19 +54,20 @@ public class TextureGenerator {
     private static void generateAll() {
         System.out.println("\n--- Starting Texture Generation ---");
         for (Materials material : Materials.values()) {
+            List<String> exclusions = material.getVanillaExclusions() != null ?
+                    material.getVanillaExclusions().excludedVariantIds() : Collections.emptyList();
+
             for (Variants variant : material.getVariants()) {
+                String id = variant.getFormattedId(material.getId());
+                // Skip generation if this variant is in the exclusion list for the material
+                if (exclusions != null && exclusions.contains(id)) {
+                    continue;
+                }
+
                 switch (variant.getCategory()) {
-                    case ITEM:
-                        generateSingleItemTexture(material, variant);
-                        break;
-                    case BLOCK:
-                    case FALLING_BLOCK:
-                        generateSingleBlockTexture(material, variant);
-                        break;
-                    case ORE:
-                    case FALLING_ORE:
-                        generateSingleOreTexture(material, variant);
-                        break;
+                    case ITEM -> generateSingleItemTexture(material, variant);
+                    case BLOCK, FALLING_BLOCK -> generateSingleBlockTexture(material, variant);
+                    case ORE, FALLING_ORE -> generateSingleOreTexture(material, variant);
                 }
             }
         }
@@ -220,6 +223,7 @@ public class TextureGenerator {
         File outputFile = new File(outputPath, fileName);
         outputFile.getParentFile().mkdirs();
         ImageIO.write(image, "png", outputFile);
+        System.out.println("  -> Texture created: " + outputFile.getName());
     }
 
     private static void setupPaths() {

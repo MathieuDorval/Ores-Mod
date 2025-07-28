@@ -49,7 +49,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "ores:lapis"
+              "name": "minecraft:lapis_lazuli"
             }
           ]
         }

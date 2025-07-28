@@ -1,15 +1,20 @@
 package com.ores.datagen;
 
+import com.ores.OresMod;
 import com.ores.core.Materials;
 import com.ores.core.Variants;
 import com.ores.registries.ModBlocks;
 import com.ores.registries.ModItems;
 import com.ores.core.Registry;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
@@ -23,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ModBlockLootTableProvider extends BlockLootSubProvider {
@@ -33,20 +39,38 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        // On parcourt tous les blocs qui ont été préparés pour l'enregistrement.
         for (Registry.BlockRegistryEntry entry : Registry.BLOCKS_TO_REGISTER) {
             var category = entry.category();
             Block block = ModBlocks.getBlock(entry.ID()).get();
 
             if (category == Variants.Category.BLOCK || category == Variants.Category.FALLING_BLOCK) {
-                // Les blocs de stockage se dropent eux-mêmes.
                 this.dropSelf(block);
             } else if (category == Variants.Category.ORE || category == Variants.Category.FALLING_ORE) {
-                // Les minerais ont une logique de butin plus complexe.
-                // On doit retrouver le matériau correspondant pour connaître le butin.
                 findMaterialForBlock(entry.ID()).ifPresent(material -> {
                     Materials.OreProps oreProps = material.getOreProps();
-                    Item dropItem = ModItems.getItem(oreProps.idDrop()).get();
+                    String dropId = oreProps.idDrop();
+                    Item dropItem = null;
+
+                    if ("self".equalsIgnoreCase(dropId)) {
+                        dropItem = block.asItem();
+                    } else if (dropId.startsWith("minecraft:")) {
+                        Optional<Item> optionalItem = BuiltInRegistries.ITEM.getOptional(ResourceLocation.parse(dropId));
+                        if (optionalItem.isPresent()) {
+                            dropItem = optionalItem.get();
+                        }
+                    } else {
+                        String path = dropId.startsWith(OresMod.MODID + ":") ? dropId.substring(OresMod.MODID.length() + 1) : dropId;
+                        Supplier<? extends Item> itemSupplier = ModItems.getItem(path);
+                        if (itemSupplier != null) {
+                            dropItem = itemSupplier.get();
+                        }
+                    }
+
+                    if (dropItem == null || dropItem == Items.AIR) {
+                        System.err.println("ERREUR DE LOOT TABLE: Impossible de déterminer l'item à dropper pour '" + entry.ID() + "' avec l'ID de drop '" + dropId + "'");
+                        return;
+                    }
+
                     float minDrop = Objects.requireNonNullElse(oreProps.minDrop(), 1).floatValue();
                     float maxDrop = Objects.requireNonNullElse(oreProps.maxDrop(), 1).floatValue();
 
@@ -56,9 +80,6 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         }
     }
 
-    /**
-     * Crée une table de butin pour un minerai, gérant l'enchantement Fortune.
-     */
     protected LootTable.Builder createOreDrop(Block block, Item dropItem, float min, float max) {
         HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return createSilkTouchDispatchTable(block,
@@ -70,9 +91,6 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         );
     }
 
-    /**
-     * Retrouve le matériau d'origine à partir de l'ID d'un bloc.
-     */
     private Optional<Materials> findMaterialForBlock(String blockId) {
         for (Materials material : Materials.values()) {
             for (Variants variant : material.getVariants()) {
@@ -86,7 +104,6 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected @NotNull Iterable<Block> getKnownBlocks() {
-        // Retourne tous les blocs enregistrés par le mod.
         return ModBlocks.BLOCKS.getEntries().stream()
                 .map(net.neoforged.neoforge.registries.DeferredHolder::get)
                 .collect(Collectors.toList());

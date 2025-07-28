@@ -1,5 +1,6 @@
 package com.ores.datagen;
 
+import com.ores.OresMod;
 import com.ores.core.Materials;
 import com.ores.core.Variants;
 import com.ores.registries.ModItems;
@@ -16,7 +17,8 @@ import java.util.function.Supplier;
 
 public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, "ores");
+        super(output, lookupProvider, OresMod.MODID);
+
     }
 
     @Override
@@ -40,7 +42,15 @@ public class ModItemTagProvider extends ItemTagsProvider {
                         isBeaconPayment = true;
                     }
                 }
+                // Gère les BlockItems
+                else if (category == Variants.Category.BLOCK || category == Variants.Category.FALLING_BLOCK) {
+                    Variants.BlockProps varProps = Objects.requireNonNull(variant.getBlockProps());
+                    if (material.getItemProps().beacon() && varProps.beacon()) {
+                        isBeaconPayment = true;
+                    }
+                }
 
+                // Applique le tag si la condition est remplie
                 if (isBeaconPayment) {
                     this.tag(ItemTags.BEACON_PAYMENT_ITEMS).add(itemSupplier.get());
                 }

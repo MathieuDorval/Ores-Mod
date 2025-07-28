@@ -24,26 +24,32 @@ public class ModDataMapProvider extends DataMapProvider {
             for (Variants variant : material.getVariants()) {
                 String itemId = variant.getFormattedId(material.getId());
                 var itemSupplier = ModItems.getItem(itemId);
+
                 if (itemSupplier == null) {
                     continue;
                 }
+
                 Item item = itemSupplier.get();
                 Integer materialBurnTime = material.getItemProps().burnTime();
+
                 // Gère les items simples
                 if (variant.getCategory() == Variants.Category.ITEM && variant.getItemProps() != null) {
                     Integer variantBurnTime = variant.getItemProps().burnTime();
+
+                    // Si les deux ont un burnTime, on les multiplie
                     if (materialBurnTime != null && variantBurnTime != null) {
-                        int finalBurnTime = materialBurnTime * variantBurnTime / 100;
+                        int finalBurnTime = materialBurnTime * variantBurnTime;
                         if (finalBurnTime > 0) {
                             this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(item.builtInRegistryHolder(), new FurnaceFuel(finalBurnTime), false);
                         }
                     }
                 }
-                // Gère les BlockItems (qui peuvent aussi être des combustibles, comme le bloc de charbon)
+                // Gère les BlockItems
                 else if ((variant.getCategory() == Variants.Category.BLOCK || variant.getCategory() == Variants.Category.FALLING_BLOCK) && variant.getBlockProps() != null) {
                     Integer variantBurnTime = variant.getBlockProps().burnTime();
+
                     if (materialBurnTime != null && variantBurnTime != null) {
-                        int finalBurnTime = materialBurnTime * variantBurnTime / 100;
+                        int finalBurnTime = materialBurnTime * variantBurnTime;
                         if (finalBurnTime > 0) {
                             this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(item.builtInRegistryHolder(), new FurnaceFuel(finalBurnTime), false);
                         }
