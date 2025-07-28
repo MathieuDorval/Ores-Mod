@@ -69,8 +69,8 @@ public class ModRecipeProvider extends RecipeProvider {
 
             }
             if (storageBlock != null && rawStorageBlock != null) {
-                oreSmelting(output, List.of(rawStorageBlock), RecipeCategory.BUILDING_BLOCKS, baseItem, 0.7f, 1800, material.getId());
-                oreBlasting(output, List.of(rawStorageBlock), RecipeCategory.BUILDING_BLOCKS, baseItem, 0.7f, 900, material.getId());
+                oreSmelting(output, List.of(rawStorageBlock), RecipeCategory.BUILDING_BLOCKS, storageBlock, 0.7f, 1800, material.getId());
+                oreBlasting(output, List.of(rawStorageBlock), RecipeCategory.BUILDING_BLOCKS, storageBlock, 0.7f, 900, material.getId());
             }
 
             // --- COMPRESSION / DECOMPRESSION ---
