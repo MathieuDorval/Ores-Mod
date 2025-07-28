@@ -1,114 +1,177 @@
 package com.ores.core;
 
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Définit tous les matériaux à ajouter par le mod.
- * Chaque matériau a un ID unique, un niveau de minage,
- * et peut avoir des configurations personnalisées pour ses blocs et items.
+ * Chaque propriété est maintenant une variable distincte pour permettre une combinaison flexible.
+ * La structure utilise des records imbriqués pour une meilleure organisation.
  */
 public enum Materials {
 
-    // id, miningLevel, blockPropertiesConfig, itemPropertiesConfig
-    COAL("coal", 0,
-            blockProps -> blockProps.strength(2.0f, 3.0f),
-            null
+    COAL("coal",
+            new ItemProps(64, null, false, null, null, null, false, true, 1600, false, MaterialTexture.COAL, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.0f, 0.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, 0, null, null, null, 0, null, 0, Tools.PICKAXE, MaterialBlockTexture.COAL, RawMaterialBlockTexture.IRON),
+            new OreProps(0.0f, 0.0f, 0, 2, false, 0, null, 0, 1, 1, "ores:coal", OreOverlayTexture.COAL)
     ),
-    COPPER("copper", 1,
-            blockProps -> blockProps.strength(3.0f, 5.0f).sound(SoundType.COPPER),
-            null
+    COPPER("copper",
+            new ItemProps(64, Rarity.COMMON, false, null, null, null, false, true, null, false, MaterialTexture.COAL, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.0f, 0.0f, SoundType.COPPER, MapColor.COLOR_ORANGE, NoteBlockInstrument.BIT, false, 0, null, null, null, null, null, 1, Tools.PICKAXE, MaterialBlockTexture.IRON, RawMaterialBlockTexture.COPPER),
+            new OreProps(0.0f, 0.0f, 0, 0, false, 0, null, 1, 2, 5, "ores:raw_copper", OreOverlayTexture.COPPER)
     ),
-    IRON("iron", 1,
-            blockProps -> blockProps.strength(5.0f, 6.0f).sound(SoundType.METAL),
-            null
+    IRON("iron",
+            new ItemProps(64, Rarity.COMMON, false, null, null, null, false, true, null, true, MaterialTexture.COAL, MaterialIngotTexture.IRON, RawMaterialTexture.IRON, MaterialNuggetTexture.IRON),
+            new BlockProps(0.0f, 0.0f, SoundType.METAL, MapColor.METAL, NoteBlockInstrument.IRON_XYLOPHONE, true, 0, null, null, null, null, null, 1, Tools.PICKAXE, MaterialBlockTexture.IRON, RawMaterialBlockTexture.IRON),
+            new OreProps(0.0f, 0.0f, 0, 0, false, 0, null, 1, 1, 1, "ores:raw_ingot", OreOverlayTexture.IRON)
     ),
-    LAPIS("lapis", 1,
-            blockProps -> blockProps.strength(3.0f, 3.0f),
-            null
+    LAPIS("lapis",
+            new ItemProps(64, Rarity.COMMON, null, null, null, null, false, true, null, false, MaterialTexture.LAPIS, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.0f, 0.0f, SoundType.STONE, MapColor.LAPIS, NoteBlockInstrument.BASEDRUM, true, 0, null, null, null, null, null, 1, Tools.PICKAXE, MaterialBlockTexture.LAPIS, RawMaterialBlockTexture.IRON),
+            new OreProps(0.0f, 0.0f, 2, 5, false, 0, null, 1, 4, 9, "ores:lapis", OreOverlayTexture.LAPIS)
     ),
-    GOLD("gold", 2,
-            blockProps -> blockProps.strength(3.0f, 6.0f).sound(SoundType.METAL),
-            null
+    GOLD("gold",
+            new ItemProps(64, Rarity.COMMON, false, null, null, null, false, true, null, true, MaterialTexture.COAL, MaterialIngotTexture.GOLD, RawMaterialTexture.GOLD, MaterialNuggetTexture.GOLD),
+            new BlockProps(0.0f, 0.0f, SoundType.METAL, MapColor.GOLD, NoteBlockInstrument.BELL, true, 0, null, null, null, null, null, 2, Tools.PICKAXE, MaterialBlockTexture.IRON, RawMaterialBlockTexture.GOLD),
+            new OreProps(0.0f, 0.0f, 0, 0, false, 0, null, 2, 1, 1, "ores:raw_gold", OreOverlayTexture.GOLD)
     ),
-    REDSTONE("redstone", 2,
-            blockProps -> blockProps.strength(3.0f, 3.0f),
-            null
+    REDSTONE("redstone",
+            new ItemProps(64, Rarity.COMMON, false, null, null, null, false, true, null, false, MaterialTexture.REDSTONE, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.0f, 0.0f, SoundType.STONE, MapColor.COLOR_RED, NoteBlockInstrument.BASEDRUM, true, 0, null, null, null, null, null, 2, Tools.PICKAXE, MaterialBlockTexture.IRON, RawMaterialBlockTexture.IRON),
+            new OreProps(0.0f, 0.0f, 1, 5, true, 7, null, 2, 4, 5, "ores:redstone", OreOverlayTexture.REDSTONE)
     ),
-    EMERALD("emerald", 2,
-            blockProps -> blockProps.strength(3.0f, 9.0f),
-            null
+    EMERALD("emerald",
+            new ItemProps(64, Rarity.RARE, false, null, null, null, false, true, null, true, MaterialTexture.EMERALD, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.5f, 0.0f, SoundType.STONE, MapColor.EMERALD, NoteBlockInstrument.BASEDRUM, true, 0, null, null, null, null, null, 2, Tools.PICKAXE, MaterialBlockTexture.EMERALD, RawMaterialBlockTexture.IRON),
+            new OreProps(0.5f, 0.0f, 3, 7, false, 0, null, 2, 1, 1, "ores:emerald", OreOverlayTexture.EMERALD)
     ),
-    DIAMOND("diamond", 2,
-            blockProps -> blockProps.strength(5.0f, 1200.0f),
-            null
+    DIAMOND("diamond",
+            new ItemProps(64, Rarity.RARE, false, null, null, null, false, true, null, true, MaterialTexture.DIAMOND, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.5f, 0.0f, SoundType.STONE, MapColor.DIAMOND, NoteBlockInstrument.BASEDRUM, true, 0, null, null, null, null, null, 2, Tools.PICKAXE, MaterialBlockTexture.DIAMOND, RawMaterialBlockTexture.IRON),
+            new OreProps(0.5f, 0.0f, 3, 7, false, 0, null, 2, 1, 1, "ores:diamond", OreOverlayTexture.DIAMOND)
     ),
-    QUARTZ("quartz", 1,
-            blockProps -> blockProps.strength(3.0f, 3.0f),
-            null
+    QUARTZ("quartz",
+            new ItemProps(64, Rarity.COMMON, false, false, 5.0f, 1.0f, false, true, null, false, MaterialTexture.QUARTZ, MaterialIngotTexture.COPPER, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(0.0f, 0.0f, SoundType.STONE, MapColor.QUARTZ, NoteBlockInstrument.BASEDRUM, true, 0, null, null, null, null, null, 0, Tools.PICKAXE, MaterialBlockTexture.IRON, RawMaterialBlockTexture.IRON),
+            new OreProps(0.0f, 0.0f, 2, 5, false, 0, null, 0, 1, 1, "ores:quartz", OreOverlayTexture.QUARTZ)
     ),
-    NETHERITE("netherite", 3,
-            blockProps -> blockProps.strength(50.0f, 1200.0f),
-            itemProps -> itemProps.fireResistant().stacksTo(32)
+    NETHERITE("netherite",
+            new ItemProps(64, Rarity.EPIC, true, null, null, null, false, true, 0, true, MaterialTexture.COAL, MaterialIngotTexture.NETHERITE, RawMaterialTexture.COPPER, MaterialNuggetTexture.IRON),
+            new BlockProps(50.0f, 1200.0f, SoundType.NETHERITE_BLOCK, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, true, 0, null, null, null, null, null, 3, Tools.PICKAXE, MaterialBlockTexture.IRON, RawMaterialBlockTexture.IRON),
+            new OreProps(30.0f, 1200.0f, 0, 0, false, 0, null, 3, 1, 1, "minecraft:ancien_debris", null)
     );
 
+    // --- Enums Internes ---
+    public enum Tools { PICKAXE, SHOVEL, AXE, HOE, SWORD }
+    public enum MaterialTexture { DIAMOND, EMERALD, COAL, LAPIS, REDSTONE, QUARTZ }
+    public enum RawMaterialTexture { COPPER, IRON, GOLD }
+    public enum MaterialIngotTexture { COPPER, IRON, GOLD, NETHERITE }
+    public enum MaterialNuggetTexture { IRON, GOLD }
+    public enum MaterialScrapTexture { NETHERITE }
+    public enum MaterialBlockTexture { DIAMOND, EMERALD, COAL, LAPIS, IRON }
+    public enum RawMaterialBlockTexture { COPPER, IRON, GOLD }
+    public enum OreOverlayTexture { COAL, COPPER, DIAMOND, EMERALD, GOLD, IRON, LAPIS, REDSTONE, QUARTZ }
+
+    /**
+     * Propriétés relatives à un item (ex: diamant).
+     */
+    public record ItemProps(
+            // properties
+            @Nullable Integer maxStackSize,
+            @Nullable Rarity rarity,
+            @Nullable Boolean isFireResistant,
+            @Nullable Boolean isFood,
+            @Nullable Float nutrition,
+            @Nullable Float saturationModifier,
+            @Nullable Boolean alwaysEdible,
+            Boolean trim,
+            // data
+            @Nullable Integer burnTime,
+            Boolean beacon,
+            // textures
+            MaterialTexture selfTexture,
+            MaterialIngotTexture ingotTexture,
+            RawMaterialTexture rawTexture,
+            MaterialNuggetTexture nuggetTexture
+    ) {}
+
+    /**
+     * Propriétés relatives à un bloc de stockage (ex: bloc de diamant).
+     */
+    public record BlockProps(
+            // properties
+            Float destroyTime,
+            Float explosionResistance,
+            SoundType soundType,
+            MapColor mapColor,
+            NoteBlockInstrument instrument,
+            @Nullable Boolean requiresCorrectToolForDrops,
+            @Nullable Integer lightLevel,
+            @Nullable Float friction,
+            @Nullable Float jumpFactor,
+            @Nullable Float speedFactor,
+            @Nullable Integer redstonePower,
+            @Nullable PushReaction pushReaction,
+            // data
+            Integer toolLevel,
+            Tools tool,
+            // textures
+            MaterialBlockTexture blockTexture,
+            RawMaterialBlockTexture rawBlockTexture
+    ) {}
+
+    /**
+     * Propriétés spécifiques à un bloc de minerai.
+     */
+
+    public record OreProps(
+            // properties
+            Float destroyTime,
+            Float explosionResistance,
+            Integer minXp,
+            Integer maxXp,
+            Boolean isRedstoneLike,
+            @Nullable Integer lightLevel,
+            @Nullable Integer redstonePower,
+            // data
+            Integer toolLevel,
+            Integer minDrop,
+            Integer maxDrop,
+            String idDrop,
+            // Textures
+            OreOverlayTexture overlay
+    ) {}
+
+
+    // --- Variables de l'énumération ---
     private final String id;
-    private final int miningLevel;
-    private final Consumer<BlockBehaviour.Properties> blockPropertiesConfig;
-    private final Consumer<Item.Properties> itemPropertiesConfig;
+    private final ItemProps itemProps;
+    private final BlockProps blockProps;
+    private final OreProps oreProps;
+
 
     /**
-     * Constructeur principal pour un nouveau matériau.
-     * @param id Le nom de base pour le matériau.
-     * @param miningLevel Le niveau d'outil minimum requis.
-     * @param blockPropertiesConfig Une fonction pour configurer les propriétés du bloc.
-     * @param itemPropertiesConfig Une fonction pour configurer les propriétés de l'item.
+     * Constructeur principal avec les records de propriétés.
      */
-    Materials(String id, int miningLevel, Consumer<BlockBehaviour.Properties> blockPropertiesConfig, Consumer<Item.Properties> itemPropertiesConfig) {
+    Materials(String id, ItemProps itemProps, BlockProps blockProps, OreProps oreProps) {
         this.id = id;
-        this.miningLevel = miningLevel;
-        this.blockPropertiesConfig = blockPropertiesConfig;
-        this.itemPropertiesConfig = itemPropertiesConfig;
+        this.itemProps = itemProps;
+        this.blockProps = blockProps;
+        this.oreProps = oreProps;
     }
 
+    // --- Getters ---
+    public String getId() { return id; }
+    public ItemProps getItemProps() { return itemProps; }
+    public BlockProps getBlockProps() { return blockProps; }
+    public OreProps getOreProps() { return oreProps; }
 
-    /**
-     * Constructeur pour les matériaux qui n'ont pas de configuration d'item spéciale.
-     */
-    Materials(String id, int miningLevel, Consumer<BlockBehaviour.Properties> blockPropertiesConfig) {
-        this(id, miningLevel, blockPropertiesConfig, itemProps -> {});
-    }
-
-    /**
-     * Constructeur pour les matériaux sans configuration spéciale.
-     */
-    Materials(String id, int miningLevel) {
-        this(id, miningLevel, blockProps -> {}, itemProps -> {});
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public int getMiningLevel() {
-        return miningLevel;
-    }
-
-    public Consumer<BlockBehaviour.Properties> getBlockPropertiesConfig() {
-        return blockPropertiesConfig;
-    }
-
-    public Consumer<Item.Properties> getItemPropertiesConfig() {
-        return itemPropertiesConfig;
-    }
-
-    public List<Variants> getVariants() {
-        return Arrays.asList(Variants.values());
-    }
+    public List<Variants> getVariants() { return Arrays.asList(Variants.values()); }
 }

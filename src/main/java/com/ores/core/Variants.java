@@ -1,113 +1,118 @@
 package com.ores.core;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 public enum Variants {
-    // --- Minerais ---
-    STONE_ORE("{material}_ore", Category.ORE, "minecraft:stone", 0, List.of("c:ores", "c:{material}_ores", "minecraft:mineable/pickaxe"),
-            props -> props.sound(SoundType.STONE).mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0f, 3.0f).requiresCorrectToolForDrops()
-    ),
-    DEEPSLATE_ORE("deepslate_{material}_ore", Category.ORE, "minecraft:deepslate", 0, List.of("c:ores", "c:{material}_ores", "minecraft:mineable/pickaxe"),
-            props -> props.sound(SoundType.DEEPSLATE).mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0f, 3.0f).requiresCorrectToolForDrops()
-    ),
-    GRANITE_ORE("granite_{material}_ore", Category.ORE, "minecraft:granite", 0, List.of("c:ores", "c:{material}_ores", "minecraft:mineable/pickaxe"),
-            props -> props.sound(SoundType.STONE).mapColor(MapColor.TERRACOTTA_RED).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0f, 3.0f).requiresCorrectToolForDrops()
-    ),
-    GRAVEL_ORE("gravel_{material}_ore", Category.ORE, "minecraft:gravel", 0, List.of("c:ores", "c:{material}_ores", "minecraft:mineable/shovel"),
-            props -> props.sound(SoundType.GRAVEL).mapColor(MapColor.TERRACOTTA_GRAY).instrument(NoteBlockInstrument.BASEDRUM).strength(3.0f, 3.0f).requiresCorrectToolForDrops()
-    ),
 
     // --- Items ---
-    SELF("{material}", Category.ITEM,
-            null
+    SELF("%s", Category.ITEM,
+            new ItemProps(64, Rarity.COMMON, false, false, 0.0f, 0.0f, false, true, 100, true, ColorType.BASE)
     ),
-    INGOT("{material}_ingot", Category.ITEM,
-            null
+    INGOT("%s_ingot", Category.ITEM,
+            new ItemProps(64, Rarity.COMMON, false, null, null, null, false, false, 100, true, ColorType.BASE)
     ),
-    NUGGET("{material}_nugget", Category.ITEM,
-            props -> props.stacksTo(16).rarity(Rarity.RARE).fireResistant()
+    RAW("raw_%s", Category.ITEM,
+            new ItemProps(null, null, null, null, null, null, false, false, null, false, ColorType.RAW)
+    ),
+    NUGGET("%s_nugget", Category.ITEM,
+            new ItemProps(16, Rarity.RARE, true, null, null, null, false, false, 12, false, ColorType.BASE)
     ),
 
     // --- Blocs ---
-    BLOCK("{material}_block", Category.BLOCK, 0, List.of("c:storage_blocks", "minecraft:mineable/pickaxe"),
-            props -> props.strength(0.0f, 0.0f)
+    BLOCK("%s_block", Category.BLOCK,
+            new BlockProps(5.0f, 6.0f, true, 0, null, null, null, null, null, null, 64, 0, Materials.Tools.PICKAXE, true, ColorType.BASE)
     ),
-    RAW_BLOCK("raw_{material}_block", Category.BLOCK, 0, List.of("c:storage_blocks", "minecraft:mineable/pickaxe"),
-            props -> props.strength(0.0f, 0.0f)
+    RAW_BLOCK("raw_%s_block", Category.BLOCK,
+            new BlockProps(5.0f, 6.0f, true, 0, null, null, null, null, null, null, null, 0, Materials.Tools.PICKAXE, false, ColorType.RAW)
+    ),
+    DUST_BLOCK("dust_%s_block", Category.FALLING_BLOCK,
+            new BlockProps(0.5f, 0.5f, true, 0, null, null, null, null, PushReaction.DESTROY, true, 32, 0, Materials.Tools.SHOVEL, false, ColorType.BASE)
+    ),
+
+    // --- Minerais ---
+    STONE_ORE("%s_ore", Category.ORE,
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, "minecraft:stone", ColorType.BASE)
+    ),
+    DEEPSLATE_ORE("deepslate_%s_ore", Category.ORE,
+            new OreProps(4.5f, 3.0f, SoundType.DEEPSLATE, MapColor.DEEPSLATE, NoteBlockInstrument.BASEDRUM, null, null, 0, "minecraft:deepslate", ColorType.BASE)
+    ),
+    GRAVEL_ORE("gravel_%s_ore", Category.FALLING_ORE,
+            new OreProps(0.6f, 0.6f, SoundType.GRAVEL, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, "minecraft:gravel", ColorType.BASE)
     );
 
 
-    private final String idTemplate;
+    // --- Enums Internes ---
+    public enum Category { ITEM, BLOCK, ORE, FALLING_BLOCK, FALLING_ORE }
+    public enum ColorType { BASE, RAW }
+
+    // --- Records pour les configurations ---
+    public record ItemProps(
+            @Nullable Integer maxStackSize, @Nullable Rarity rarity, @Nullable Boolean isFireResistant,
+            @Nullable Boolean isFood, @Nullable Float nutrition, @Nullable Float saturationModifier, @Nullable Boolean alwaysEdible,
+            Boolean trimable, @Nullable Integer burnTime, Boolean beacon, ColorType colorType
+    ) {}
+
+    public record BlockProps(
+            Float destroyTime, Float explosionResistance, @Nullable Boolean requiresCorrectToolForDrops,
+            @Nullable Integer lightLevel, @Nullable Float friction, @Nullable Float jumpFactor, @Nullable Float speedFactor,
+            @Nullable Integer redstonePower, @Nullable PushReaction pushReaction, @Nullable Boolean dropsOnFalling,
+            @Nullable Integer maxStackSize, Integer toolLevel, Materials.Tools tool, Boolean beacon, ColorType colorType
+    ) {}
+
+    public record OreProps(
+            Float destroyTime, Float explosionResistance, SoundType soundType, MapColor mapColor,
+            NoteBlockInstrument instrument, @Nullable Integer lightLevel, @Nullable Integer redstonePower,
+            Integer toolLevel, String idStone, ColorType colorType
+    ) {}
+
+
+    // --- Variables de l'énumération ---
+    private final String idFormat;
     private final Category category;
-    @Nullable private final String baseBlockId;
-    private final int toolLevel;
-    private final List<String> tags;
-    @Nullable private final Consumer<BlockBehaviour.Properties> blockPropertiesConfig;
-    @Nullable private final Consumer<Item.Properties> itemPropertiesConfig;
+    @Nullable private final ItemProps itemProps;
+    @Nullable private final BlockProps blockProps;
+    @Nullable private final OreProps oreProps;
 
-    // Constructeur principal (privé)
-    private Variants(String idTemplate, Category category, @Nullable String baseBlockId, int toolLevel, List<String> tags, @Nullable Consumer<BlockBehaviour.Properties> blockConfig, @Nullable Consumer<Item.Properties> itemConfig) {
-        this.idTemplate = idTemplate;
+
+    // --- Constructeurs ---
+    Variants(String idFormat, Category category, @Nullable ItemProps itemProps, @Nullable BlockProps blockProps, @Nullable OreProps oreProps) {
+        this.idFormat = idFormat;
         this.category = category;
-        this.baseBlockId = baseBlockId;
-        this.toolLevel = toolLevel;
-        this.tags = tags;
-        this.blockPropertiesConfig = blockConfig;
-        this.itemPropertiesConfig = itemConfig;
+        this.itemProps = itemProps;
+        this.blockProps = blockProps;
+        this.oreProps = oreProps;
     }
 
-    // --- Constructeurs publics et spécifiques ---
-
-    /**
-     * Constructeur pour les variantes de type ORE.
-     */
-    Variants(String idTemplate, Category category, String baseBlockId, int toolLevel, List<String> tags, Consumer<BlockBehaviour.Properties> blockConfig) {
-        this(idTemplate, category, baseBlockId, toolLevel, tags, blockConfig, null);
+    // Constructeur pour ITEM
+    Variants(String idFormat, Category category, ItemProps itemProps) {
+        this(idFormat, category, itemProps, null, null);
     }
 
-    /**
-     * Constructeur pour les variantes de type BLOCK.
-     */
-    Variants(String idTemplate, Category category, int toolLevel, List<String> tags, Consumer<BlockBehaviour.Properties> blockConfig) {
-        this(idTemplate, category, null, toolLevel, tags, blockConfig, null);
+    // Constructeur pour BLOCK et FALLING_BLOCK
+    Variants(String idFormat, Category category, BlockProps blockProps) {
+        this(idFormat, category, null, blockProps, null);
     }
 
-    /**
-     * Constructeur pour les variantes de type ITEM.
-     */
-    Variants(String idTemplate, Category category, Consumer<Item.Properties> itemConfig) {
-        this(idTemplate, category, null, -1, Collections.emptyList(), null, itemConfig);
+    // Constructeur pour ORE et FALLING_ORE
+    Variants(String idFormat, Category category, OreProps oreProps) {
+        this(idFormat, category, null, null, oreProps);
     }
 
+
+    // --- Getters ---
     public String getFormattedId(@NotNull String materialName) {
-        return this.idTemplate.replace("{material}", materialName);
+        return String.format(idFormat, materialName);
     }
-
-    public List<String> getFormattedTags(@NotNull String materialName) {
-        if (this.tags.isEmpty()) return Collections.emptyList();
-        return this.tags.stream().map(tag -> tag.replace("{material}", materialName)).collect(Collectors.toList());
-    }
-
-    // Getters
-    public String getIdTemplate() { return idTemplate; }
     public Category getCategory() { return category; }
-    @Nullable public String getBaseBlockId() { return baseBlockId; }
-    public int getToolLevel() { return toolLevel; }
-    public List<String> getTags() { return tags; }
-    @Nullable public Consumer<BlockBehaviour.Properties> getBlockPropertiesConfig() { return blockPropertiesConfig; }
-    @Nullable public Consumer<Item.Properties> getItemPropertiesConfig() { return itemPropertiesConfig; }
-
-    public enum Category { ITEM, BLOCK, ORE }
+    @Nullable public ItemProps getItemProps() { return itemProps; }
+    @Nullable public BlockProps getBlockProps() { return blockProps; }
+    @Nullable public OreProps getOreProps() { return oreProps; }
 }

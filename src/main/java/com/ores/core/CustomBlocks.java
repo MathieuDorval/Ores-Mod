@@ -32,10 +32,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class CustomBlocks {
+
     // FALLING BLOCK
     public static class CustomFallingBlock extends FallingBlock {
         private final boolean dropsOnBreak;

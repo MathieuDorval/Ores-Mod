@@ -1,19 +1,23 @@
 package com.ores;
 
+import com.ores.registries.ModBlocks;
+import com.ores.registries.ModCreativeTabs;
+import com.ores.registries.ModItems;
+import com.ores.registries.Registry;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(OresMod.MODID)
 public class OresMod {
     public static final String MODID = "ores";
     public OresMod(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
-        NeoForge.EVENT_BUS.register(this);
+        Registry.initialize();
+        ModBlocks.registerBlocks();
+        ModItems.registerItems();
 
-    }
-    private void commonSetup(FMLCommonSetupEvent event) {
+        ModBlocks.BLOCKS.register(modEventBus);
+        ModItems.ITEMS.register(modEventBus);
+        ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
     }
 }
