@@ -28,13 +28,13 @@ public enum Variants {
 
     // --- Blocs ---
     BLOCK("%s_block", Category.BLOCK,
-            new BlockProps(5.0f, 6.0f, true, 0, null, null, null, null, null, null, 64, 0, Materials.Tools.PICKAXE, true, ColorType.BASE)
+            new BlockProps(5.0f, 6.0f, true, 0, null, null, null, null, null, null, 64, 0, Materials.Tools.PICKAXE, 900, true, ColorType.BASE)
     ),
     RAW_BLOCK("raw_%s_block", Category.BLOCK,
-            new BlockProps(5.0f, 6.0f, true, 0, null, null, null, null, null, null, null, 0, Materials.Tools.PICKAXE, false, ColorType.RAW)
+            new BlockProps(5.0f, 6.0f, true, 0, null, null, null, null, null, null, null, 0, Materials.Tools.PICKAXE, null, false, ColorType.RAW)
     ),
     DUST_BLOCK("dust_%s_block", Category.FALLING_BLOCK,
-            new BlockProps(0.5f, 0.5f, true, 0, null, null, null, null, PushReaction.DESTROY, true, 32, 0, Materials.Tools.SHOVEL, false, ColorType.BASE)
+            new BlockProps(0.5f, 0.5f, true, 0, null, null, null, null, PushReaction.DESTROY, true, 32, 0, Materials.Tools.SHOVEL, null, false, ColorType.BASE)
     ),
 
     // --- Minerais ---
@@ -64,7 +64,7 @@ public enum Variants {
             Float destroyTime, Float explosionResistance, @Nullable Boolean requiresCorrectToolForDrops,
             @Nullable Integer lightLevel, @Nullable Float friction, @Nullable Float jumpFactor, @Nullable Float speedFactor,
             @Nullable Integer redstonePower, @Nullable PushReaction pushReaction, @Nullable Boolean dropsOnFalling,
-            @Nullable Integer maxStackSize, Integer toolLevel, Materials.Tools tool, Boolean beacon, ColorType colorType
+            @Nullable Integer maxStackSize, Integer toolLevel, Materials.Tools tool, @Nullable Integer burnTime, Boolean beacon, ColorType colorType
     ) {}
 
     public record OreProps(
