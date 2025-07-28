@@ -1,6 +1,7 @@
 package com.ores.registries;
 
 import com.ores.OresMod;
+import com.ores.core.Registry;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredRegister;
 

@@ -1,8 +1,5 @@
-package com.ores.registries;
+package com.ores.core;
 
-import com.ores.core.CustomBlocks;
-import com.ores.core.Materials;
-import com.ores.core.Variants;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.Item;

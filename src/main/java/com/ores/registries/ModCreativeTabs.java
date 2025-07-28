@@ -1,6 +1,7 @@
 package com.ores.registries;
 
 import com.ores.OresMod;
+import com.ores.core.Registry;
 import com.ores.core.Variants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;

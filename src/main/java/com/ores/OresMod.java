@@ -3,7 +3,7 @@ package com.ores;
 import com.ores.registries.ModBlocks;
 import com.ores.registries.ModCreativeTabs;
 import com.ores.registries.ModItems;
-import com.ores.registries.Registry;
+import com.ores.core.Registry;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.ModContainer;

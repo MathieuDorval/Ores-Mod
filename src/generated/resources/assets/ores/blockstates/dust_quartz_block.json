@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "ores:block/dust_quartz_block"
+    }
+  }
+}
