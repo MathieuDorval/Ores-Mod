@@ -1,5 +1,6 @@
 package com.ores.core;
 
+import com.ores.config.GenerationConfig;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.Item;
@@ -25,6 +26,7 @@ public class Registry {
     public static void initialize() {
         BLOCKS_TO_REGISTER.clear();
         ITEMS_TO_REGISTER.clear();
+        GenerationConfig.load();
 
         for (Materials material : Materials.values()) {
             List<String> exclusions = null;
@@ -33,10 +35,11 @@ public class Registry {
             }
             for (Variants variant : material.getVariants()) {
                 String id = variant.getFormattedId(material.getId());
-                if (exclusions != null && exclusions.contains(id)) {
-                    continue;
-                }
+                if (exclusions != null && exclusions.contains(id)) continue;
                 var category = variant.getCategory();
+
+                boolean isOre = category == Variants.Category.ORE || category == Variants.Category.FALLING_ORE;
+                if (!isOre && !GenerationConfig.shouldGenerate(id)) continue;
 
                 if (category == Variants.Category.ITEM) {
                     Item.Properties itemProperties = new Item.Properties();

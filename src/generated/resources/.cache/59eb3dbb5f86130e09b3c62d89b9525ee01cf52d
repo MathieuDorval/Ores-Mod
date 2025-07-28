@@ -1,4 +1,4 @@
-// 1.21.8	2025-07-28T21:18:34.6953801	Loot Tables
+// 1.21.8	2025-07-28T21:39:17.8770001	Loot Tables
 844044bad23cd95a5cdcb1ef0f97dccc60c6c196 data/ores/loot_table/blocks/coal_ore.json
 0cbb4282fb500388dc58f94cd3c62f17119c5059 data/ores/loot_table/blocks/copper_ore.json
 0d1c8e761cc7acf39806da9994ada8746030e05f data/ores/loot_table/blocks/deepslate_coal_ore.json
@@ -12,16 +12,6 @@ af9defe4a1202a863f85f2266356adf73abacedb data/ores/loot_table/blocks/deepslate_i
 909bd978ffcb76cb8dfc7228a895ae5d2ed2fa44 data/ores/loot_table/blocks/deepslate_quartz_ore.json
 21bb5d035757bf66e21ff4764c1fdbd405930599 data/ores/loot_table/blocks/deepslate_redstone_ore.json
 742b96890346e1e079da462dc5067c10141c024f data/ores/loot_table/blocks/diamond_ore.json
-edef06ae2d2a0ee233c84f224c7c6218271f1d58 data/ores/loot_table/blocks/dust_coal_block.json
-3b85c9934c9bc0f4c2db66e98e592520eceafda2 data/ores/loot_table/blocks/dust_copper_block.json
-02f7ef2e441671deca8fba05e87207173a1495ab data/ores/loot_table/blocks/dust_diamond_block.json
-57f36065bdff5a51c8bfd5a282214c5a60225ae9 data/ores/loot_table/blocks/dust_emerald_block.json
-4862f5705dcfea550dca6dacc33a582535c1e8b5 data/ores/loot_table/blocks/dust_gold_block.json
-1a2ceeafaad6641b68abf353848038fb320fedb6 data/ores/loot_table/blocks/dust_iron_block.json
-af60d82f6e9ed5f4524ce32352641e33730d3b17 data/ores/loot_table/blocks/dust_lapis_block.json
-e531e8eb0dc6ae76275d87d5c102a56c9aaa3e58 data/ores/loot_table/blocks/dust_netherite_block.json
-c85e91912ffbcf26b788083f514873440e6d3e1c data/ores/loot_table/blocks/dust_quartz_block.json
-1ad391d94c4c3e95418e37bfb625a35c7b49c6b3 data/ores/loot_table/blocks/dust_redstone_block.json
 f71a40f5809b32e88cac8234051715a327c005fd data/ores/loot_table/blocks/emerald_ore.json
 5a8fab1e92e30db3ff4b71200ea227ccae90f795 data/ores/loot_table/blocks/gold_ore.json
 249db6119ce271cc934ce5c7e8db984e2aebff7f data/ores/loot_table/blocks/gravel_coal_ore.json
@@ -41,7 +31,6 @@ a71a6c040074878d056955ed239fc6982cd8ccc6 data/ores/loot_table/blocks/quartz_ore.
 2ecb76563fecfa3c9da67242125ebc8d3568d501 data/ores/loot_table/blocks/raw_coal_block.json
 6489444476e69974b1be03501f13ba08dacad454 data/ores/loot_table/blocks/raw_diamond_block.json
 cb227fc2daac948afe0bbf05131ea8c3d86f31ca data/ores/loot_table/blocks/raw_emerald_block.json
-2895020ed7961104c4f6d46f3f15fa1793794641 data/ores/loot_table/blocks/raw_lapis_block.json
 dbc1e9f5d63757613bd4ba689a8e75c212460a8c data/ores/loot_table/blocks/raw_netherite_block.json
 9272c0c7f7bae4fdd3b752125beb52296ad9e349 data/ores/loot_table/blocks/raw_quartz_block.json
 4fa83d2705ce873fb1abce01dada72ee43388dd8 data/ores/loot_table/blocks/raw_redstone_block.json
