@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#ores:ore_overworld",
+    "#ores:ore_nether",
+    "#ores:ore_end"
+  ]
+}
