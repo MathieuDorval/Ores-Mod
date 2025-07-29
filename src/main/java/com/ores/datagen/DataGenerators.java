@@ -20,6 +20,11 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent.Client event) {
         TextureGenerator.generateAllTextures();
 
+
+    }
+    @SubscribeEvent
+    public static void gatherServerData(GatherDataEvent.Server event) {
+
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();

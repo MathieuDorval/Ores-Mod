@@ -1,0 +1,19 @@
+{
+  "generate": [
+    "raw_coal",
+    "coal_nugget",
+    "raw_coal_block",
+    "copper_nugget",
+    "raw_redstone",
+    "raw_redstone_block",
+    "raw_emerald",
+    "emerald_nugget",
+    "raw_emerald_block",
+    "raw_diamond",
+    "diamond_nugget",
+    "raw_diamond_block",
+    "raw_quartz",
+    "raw_quartz_block",
+    "raw_netherite"
+  ]
+}
