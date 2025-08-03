@@ -23,7 +23,10 @@ public enum Variants {
             new ItemProps(null, null, null, null, null, null, false, false, null, false, ColorType.RAW)
     ),
     NUGGET("%s_nugget", Category.ITEM,
-            new ItemProps(16, Rarity.RARE, true, null, null, null, false, false, 12, false, ColorType.BASE)
+            new ItemProps(16, Rarity.RARE, false, null, null, null, false, false, 12, false, ColorType.BASE)
+    ),
+    SCRAP("%s_scrap", Category.ITEM,
+            new ItemProps(64, Rarity.COMMON, true, null, null, null, false, false, null, false, ColorType.RAW)
     ),
 
     // --- Blocs ---
