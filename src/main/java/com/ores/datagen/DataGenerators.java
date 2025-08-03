@@ -32,14 +32,14 @@ public class DataGenerators {
         generator.addProvider(true, new ModItemTagProvider(packOutput, lookupProvider));
 
         generator.addProvider(true, new ModRecipeProvider.Runner(packOutput, lookupProvider));
+        generator.addProvider(true, new ModWorldGenProvider(packOutput, lookupProvider));
+
     }
     @SubscribeEvent
     public static void gatherServerData(GatherDataEvent.Server event) {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
-        generator.addProvider(true, new ModGlobalLootModifierProvider(packOutput, lookupProvider));
 
 
     }

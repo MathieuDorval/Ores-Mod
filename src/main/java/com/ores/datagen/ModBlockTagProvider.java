@@ -52,8 +52,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                     Materials.OreProps matProps = material.getOreProps();
 
                     int maxToolLevel = Math.max(matProps.toolLevel(), varProps.toolLevel());
-                    // Les minerais sont toujours considérés comme minables à la pioche pour les tags
-                    this.applyToolTags(blockSupplier.get(), Materials.Tools.PICKAXE, maxToolLevel);
+                    this.applyToolTags(blockSupplier.get(), varProps.tool(), maxToolLevel);
                 }
             }
         }

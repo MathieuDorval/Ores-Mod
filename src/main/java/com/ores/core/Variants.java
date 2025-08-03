@@ -42,13 +42,49 @@ public enum Variants {
 
     // --- Minerais ---
     STONE_ORE("%s_ore", Category.ORE,
-            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, "minecraft:stone", ColorType.BASE)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:stone", ColorType.RAW)
     ),
     DEEPSLATE_ORE("deepslate_%s_ore", Category.ORE,
-            new OreProps(4.5f, 3.0f, SoundType.DEEPSLATE, MapColor.DEEPSLATE, NoteBlockInstrument.BASEDRUM, null, null, 0, "minecraft:deepslate", ColorType.BASE)
+            new OreProps(4.5f, 3.0f, SoundType.DEEPSLATE, MapColor.DEEPSLATE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:deepslate", ColorType.RAW)
+    ),
+    GRANITE_ORE("granite_%s_ore", Category.ORE,
+            new OreProps(1.5f, 6.0f, SoundType.STONE, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:granite", ColorType.RAW)
+    ),
+    DIORITE_ORE("diorite_%s_ore", Category.ORE,
+            new OreProps(1.5f, 6.0f, SoundType.STONE, MapColor.QUARTZ, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:diorite", ColorType.RAW)
+    ),
+    ANDESITE_ORE("andesite_%s_ore", Category.ORE,
+            new OreProps(1.5f, 6.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:andesite", ColorType.RAW)
+    ),
+    TUFF_ORE("tuff_%s_ore", Category.ORE,
+            new OreProps(1.5f, 6.0f, SoundType.TUFF, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:tuff", ColorType.RAW)
+    ),
+    CALCITE_ORE("calcite_%s_ore", Category.ORE,
+            new OreProps(0.75f, 0.75f, SoundType.CALCITE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:calcite", ColorType.RAW)
+    ),
+    BASALT_ORE("basalt_%s_ore", Category.ORE,
+            new OreProps(1.25f, 4.2f, SoundType.BASALT, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:basalt", ColorType.RAW)
+    ),
+    SMOOTH_BASALT_ORE("smooth_basalt_%s_ore", Category.ORE,
+            new OreProps(1.25f, 4.2f, SoundType.BASALT, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:smooth_basalt", ColorType.RAW)
+    ),
+    NETHERRACK_ORE("netherrack_%s_ore", Category.ORE,
+            new OreProps(0.4f, 0.4f, SoundType.NETHERRACK, MapColor.NETHER, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:netherrack", ColorType.RAW)
+    ),
+    END_STONE_ORE("end_stone_%s_ore", Category.ORE,
+            new OreProps(3.0f, 9.0f, SoundType.STONE, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:end_stone", ColorType.RAW)
+    ),
+    DIRT_ORE("dirt_%s_ore", Category.ORE,
+            new OreProps(0.6f, 0.6f, SoundType.GRASS, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:dirt", ColorType.RAW)
     ),
     GRAVEL_ORE("gravel_%s_ore", Category.FALLING_ORE,
-            new OreProps(0.6f, 0.6f, SoundType.GRAVEL, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, "minecraft:gravel", ColorType.BASE)
+            new OreProps(0.6f, 0.6f, SoundType.GRAVEL, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:gravel", ColorType.RAW)
+    ),
+    SAND_ORE("sand_%s_ore", Category.FALLING_ORE,
+            new OreProps(0.5f, 0.5f, SoundType.SAND, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:sand", ColorType.RAW)
+    ),
+    RED_SAND_ORE("red_sand_%s_ore", Category.FALLING_ORE,
+            new OreProps(0.5f, 0.5f, SoundType.SAND, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:red_sand", ColorType.RAW)
     );
 
 
@@ -73,7 +109,7 @@ public enum Variants {
     public record OreProps(
             Float destroyTime, Float explosionResistance, SoundType soundType, MapColor mapColor,
             NoteBlockInstrument instrument, @Nullable Integer lightLevel, @Nullable Integer redstonePower,
-            Integer toolLevel, String idStone, ColorType colorType
+            Integer toolLevel, Materials.Tools tool, String idStone, ColorType colorType
     ) {}
 
 
