@@ -6,7 +6,6 @@ import com.ores.core.Variants;
 import com.ores.registries.ModBlocks;
 import com.ores.registries.ModItems;
 import com.ores.core.Registry;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
