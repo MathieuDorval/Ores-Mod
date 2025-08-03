@@ -1,5 +1,8 @@
 {
   "values": [
-
+    "ores:ore_gold_nether_placed",
+    "ores:ore_gold_deltas_placed",
+    "ores:ore_quartz_nether_placed",
+    "ores:ore_quartz_deltas_placed"
   ]
 }
