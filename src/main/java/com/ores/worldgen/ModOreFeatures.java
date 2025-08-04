@@ -4,21 +4,26 @@ import com.ores.OresMod;
 import com.ores.core.Materials;
 import com.ores.core.Variants;
 import com.ores.registries.ModBlocks;
+import com.ores.registries.ModFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,72 +36,61 @@ import java.util.function.Supplier;
  */
 public class ModOreFeatures {
 
-    // === VANILLA ===
-    // CONFIGURED FEATURES
-    // --- COAL ---
+    // -=-=-=- VANILLA -=-=-=-
+    // === ORE ===
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COAL_KEY = registerConfiguredKey("ore_coal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COAL_BURIED_KEY = registerConfiguredKey("ore_coal_buried");
-    // --- IRON ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_KEY = registerConfiguredKey("ore_iron");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_IRON_SMALL_KEY = registerConfiguredKey("ore_iron_small");
-    // --- COPPER ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_LARGE_KEY = registerConfiguredKey("ore_copper_large");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_COPPER_SMALL_KEY = registerConfiguredKey("ore_copper_small");
-    // --- GOLD ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_KEY = registerConfiguredKey("ore_gold");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_BURIED_KEY = registerConfiguredKey("ore_gold_buried");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GOLD_NETHER_KEY = registerConfiguredKey("ore_gold_nether");
-    // --- REDSTONE ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_REDSTONE_KEY = registerConfiguredKey("ore_redstone");
-    // --- LAPIS ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LAPIS_KEY = registerConfiguredKey("ore_lapis");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_LAPIS_BURIED_KEY = registerConfiguredKey("ore_lapis_buried");
-    // --- DIAMOND ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_BURIED_KEY = registerConfiguredKey("ore_diamond_buried");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_LARGE_KEY = registerConfiguredKey("ore_diamond_large");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_MEDIUM_KEY = registerConfiguredKey("ore_diamond_medium");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_DIAMOND_SMALL_KEY = registerConfiguredKey("ore_diamond_small");
-    // --- EMERALD ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_EMERALD_KEY = registerConfiguredKey("ore_emerald");
-    // --- QUARTZ ---
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_QUARTZ_KEY = registerConfiguredKey("ore_quartz");
-    // PLACED FEATURES
-    // --- COAL ---
     public static final ResourceKey<PlacedFeature> ORE_COAL_LOWER_PLACED_KEY = registerPlacedKey("ore_coal_lower_placed");
     public static final ResourceKey<PlacedFeature> ORE_COAL_UPPER_PLACED_KEY = registerPlacedKey("ore_coal_upper_placed");
-    // --- IRON ---
     public static final ResourceKey<PlacedFeature> ORE_IRON_MIDDLE_PLACED_KEY = registerPlacedKey("ore_iron_middle_placed");
     public static final ResourceKey<PlacedFeature> ORE_IRON_SMALL_PLACED_KEY = registerPlacedKey("ore_iron_small_placed");
     public static final ResourceKey<PlacedFeature> ORE_IRON_UPPER_PLACED_KEY = registerPlacedKey("ore_iron_upper_placed");
-    // --- COPPER ---
     public static final ResourceKey<PlacedFeature> ORE_COPPER_PLACED_KEY = registerPlacedKey("ore_copper_placed");
     public static final ResourceKey<PlacedFeature> ORE_COPPER_LARGE_PLACED_KEY = registerPlacedKey("ore_copper_large_placed");
-    // --- GOLD ---
     public static final ResourceKey<PlacedFeature> ORE_GOLD_PLACED_KEY = registerPlacedKey("ore_gold_placed");
     public static final ResourceKey<PlacedFeature> ORE_GOLD_DELTAS_PLACED_KEY = registerPlacedKey("ore_gold_deltas_placed");
     public static final ResourceKey<PlacedFeature> ORE_GOLD_EXTRA_PLACED_KEY = registerPlacedKey("ore_gold_extra_placed");
     public static final ResourceKey<PlacedFeature> ORE_GOLD_LOWER_PLACED_KEY = registerPlacedKey("ore_gold_lower_placed");
     public static final ResourceKey<PlacedFeature> ORE_GOLD_NETHER_PLACED_KEY = registerPlacedKey("ore_gold_nether_placed");
-    // --- REDSTONE ---
     public static final ResourceKey<PlacedFeature> ORE_REDSTONE_PLACED_KEY = registerPlacedKey("ore_redstone_placed");
     public static final ResourceKey<PlacedFeature> ORE_REDSTONE_LOWER_PLACED_KEY = registerPlacedKey("ore_redstone_lower_placed");
-    // --- LAPIS ---
     public static final ResourceKey<PlacedFeature> ORE_LAPIS_PLACED_KEY = registerPlacedKey("ore_lapis_placed");
     public static final ResourceKey<PlacedFeature> ORE_LAPIS_BURIED_PLACED_KEY = registerPlacedKey("ore_lapis_buried_placed");
-    // --- DIAMOND ---
     public static final ResourceKey<PlacedFeature> ORE_DIAMOND_PLACED_KEY = registerPlacedKey("ore_diamond_placed");
     public static final ResourceKey<PlacedFeature> ORE_DIAMOND_BURIED_PLACED_KEY = registerPlacedKey("ore_diamond_buried_placed");
     public static final ResourceKey<PlacedFeature> ORE_DIAMOND_LARGE_PLACED_KEY = registerPlacedKey("ore_diamond_large_placed");
     public static final ResourceKey<PlacedFeature> ORE_DIAMOND_MEDIUM_PLACED_KEY = registerPlacedKey("ore_diamond_medium_placed");
-    // --- EMERALD ---
     public static final ResourceKey<PlacedFeature> ORE_EMERALD_PLACED_KEY = registerPlacedKey("ore_emerald_placed");
-    // --- QUARTZ ---
     public static final ResourceKey<PlacedFeature> ORE_QUARTZ_DELTAS_PLACED_KEY = registerPlacedKey("ore_quartz_deltas_placed");
     public static final ResourceKey<PlacedFeature> ORE_QUARTZ_NETHER_PLACED_KEY = registerPlacedKey("ore_quartz_nether_placed");
+    // === ORE VEIN ===
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_VEIN_COPPER_KEY = registerConfiguredKey("ore_vein_copper");
+    public static final ResourceKey<PlacedFeature> ORE_VEIN_COPPER_PLACED_KEY = registerPlacedKey("ore_vein_copper_placed");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_VEIN_IRON_KEY = registerConfiguredKey("ore_vein_iron");
+    public static final ResourceKey<PlacedFeature> ORE_VEIN_IRON_PLACED_KEY = registerPlacedKey("ore_vein_iron_placed");
+
+
 
 
     public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        // === VANILLA ===
+        // -=-=-=- VANILLA -=-=-=-
+        // === ORE ===
         // --- COAL ---
         register(context, ORE_COAL_KEY, Feature.ORE, new OreConfiguration(getAllOreTargetsForMaterial(Materials.COAL), 17, 0.0F));
         register(context, ORE_COAL_BURIED_KEY, Feature.ORE, new OreConfiguration(getAllOreTargetsForMaterial(Materials.COAL), 17, 0.5F));
@@ -124,6 +118,27 @@ public class ModOreFeatures {
         register(context, ORE_EMERALD_KEY, Feature.ORE, new OreConfiguration(getAllOreTargetsForMaterial(Materials.EMERALD), 3, 0.0F));
         // --- QUARTZ ---
         register(context, ORE_QUARTZ_KEY, Feature.ORE, new OreConfiguration(getAllOreTargetsForMaterial(Materials.QUARTZ), 14, 0.0F));
+        // === ORE VEIN ===
+        // --- COPPER ---
+        register(context, ORE_VEIN_COPPER_KEY, ModFeatures.GIANT_ORE_VEIN,
+                new OreVeinConfiguration(
+                        ModBlocks.getBlock("granite_copper_ore").get().defaultBlockState(),
+                        BuiltInRegistries.BLOCK.getOrThrow(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("minecraft:granite"))).value().defaultBlockState(),
+                        BuiltInRegistries.BLOCK.getOrThrow(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("minecraft:raw_copper_block"))).value().defaultBlockState(),
+                        new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
+                        2.8f, 0.35f, 0.05f
+                )
+        );
+        // --- IRON ---
+        register(context, ORE_VEIN_IRON_KEY, ModFeatures.GIANT_ORE_VEIN,
+                new OreVeinConfiguration(
+                        ModBlocks.getBlock("tuff_iron_ore").get().defaultBlockState(),
+                        BuiltInRegistries.BLOCK.getOrThrow(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("minecraft:tuff"))).value().defaultBlockState(),
+                        BuiltInRegistries.BLOCK.getOrThrow(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("minecraft:raw_iron_block"))).value().defaultBlockState(),
+                        new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES),
+                        2.5f, 0.4f, 0.05f
+                )
+        );
     }
 
     public static void bootstrapPlacedFeatures(BootstrapContext<PlacedFeature> context) {
@@ -161,6 +176,25 @@ public class ModOreFeatures {
         // --- QUARTZ ---
         register(context, ORE_QUARTZ_DELTAS_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ORE_QUARTZ_KEY), OrePlacement.commonOrePlacement(32, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(10), VerticalAnchor.belowTop(10))));
         register(context, ORE_QUARTZ_NETHER_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ORE_QUARTZ_KEY), OrePlacement.commonOrePlacement(16, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(10), VerticalAnchor.belowTop(10))));
+        // === ORE VEIN ===
+        context.register(ORE_VEIN_COPPER_PLACED_KEY, new PlacedFeature(
+                configuredFeatureRegistry.getOrThrow(ORE_VEIN_COPPER_KEY),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(96),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(96)),
+                        BiomeFilter.biome()
+                )
+        ));
+        context.register(ORE_VEIN_IRON_PLACED_KEY, new PlacedFeature(
+                configuredFeatureRegistry.getOrThrow(ORE_VEIN_IRON_KEY),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(128),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56)),
+                        BiomeFilter.biome()
+                )
+        ));
     }
 
     private static List<OreConfiguration.TargetBlockState> getAllOreTargetsForMaterial(Materials material) {
@@ -202,8 +236,12 @@ public class ModOreFeatures {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(OresMod.MODID, name));
     }
 
-    private static <FC extends net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
+    }
+
+    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, DeferredHolder<Feature<?>, F> feature, FC configuration) {
+        context.register(key, new ConfiguredFeature<>(feature.get(), configuration));
     }
 
     private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> feature, List<PlacementModifier> placement) {

@@ -1,14 +1,12 @@
 package com.ores.worldgen;
 
 import com.ores.OresMod;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -76,6 +74,7 @@ public class ModBiomeModifiers {
                 placedFeatures.getOrThrow(BADLANDS_ORES_TAG),
                 GenerationStep.Decoration.UNDERGROUND_ORES
         ));
+
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {
