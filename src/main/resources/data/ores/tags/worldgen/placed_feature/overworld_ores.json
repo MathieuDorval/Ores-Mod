@@ -8,7 +8,6 @@
     "ores:ore_copper_placed",
     "ores:ore_copper_large_placed",
     "ores:ore_gold_placed",
-    "ores:ore_gold_extra_placed",
     "ores:ore_gold_lower_placed",
     "ores:ore_redstone_placed",
     "ores:ore_redstone_lower_placed",
@@ -18,7 +17,6 @@
     "ores:ore_diamond_buried_placed",
     "ores:ore_diamond_large_placed",
     "ores:ore_diamond_medium_placed",
-
     "ores:ore_vein_copper_placed",
     "ores:ore_vein_iron_placed"
   ]

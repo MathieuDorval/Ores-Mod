@@ -145,7 +145,7 @@ public class ModOreFeatures {
         var configuredFeatureRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
         // === VANILLA ===
         // --- COAL ---
-        register(context, ORE_COAL_LOWER_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ORE_COAL_BURIED_KEY), OrePlacement.commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.belowTop(0), VerticalAnchor.absolute(192))));
+        register(context, ORE_COAL_LOWER_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ORE_COAL_BURIED_KEY), OrePlacement.commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(192))));
         register(context, ORE_COAL_UPPER_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ORE_COAL_KEY), OrePlacement.commonOrePlacement(30, HeightRangePlacement.uniform(VerticalAnchor.absolute(90), VerticalAnchor.absolute(136))));
         // --- IRON ---
         register(context, ORE_IRON_MIDDLE_PLACED_KEY, configuredFeatureRegistry.getOrThrow(ORE_IRON_KEY), OrePlacement.commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));

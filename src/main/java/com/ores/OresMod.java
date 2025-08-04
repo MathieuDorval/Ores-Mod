@@ -2,6 +2,7 @@ package com.ores;
 
 import com.ores.registries.ModBlocks;
 import com.ores.registries.ModCreativeTabs;
+import com.ores.registries.ModFeatures;
 import com.ores.registries.ModItems;
 import com.ores.core.Registry;
 import net.neoforged.bus.api.IEventBus;
@@ -19,5 +20,6 @@ public class OresMod {
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
     }
 }

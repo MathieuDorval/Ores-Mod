@@ -8,8 +8,6 @@ import net.minecraft.world.level.material.PushReaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
-
 public enum Variants {
 
     // --- Items ---
@@ -48,100 +46,109 @@ public enum Variants {
             new OreProps(4.5f, 3.0f, SoundType.DEEPSLATE, MapColor.DEEPSLATE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:deepslate", ColorType.RAW)
     ),
     GRANITE_ORE("granite_%s_ore", Category.ORE,
-            new OreProps(1.5f, 6.0f, SoundType.STONE, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:granite", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:granite", ColorType.RAW)
     ),
     DIORITE_ORE("diorite_%s_ore", Category.ORE,
-            new OreProps(1.5f, 6.0f, SoundType.STONE, MapColor.QUARTZ, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:diorite", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.QUARTZ, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:diorite", ColorType.RAW)
     ),
     ANDESITE_ORE("andesite_%s_ore", Category.ORE,
-            new OreProps(1.5f, 6.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:andesite", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:andesite", ColorType.RAW)
     ),
     TUFF_ORE("tuff_%s_ore", Category.ORE,
-            new OreProps(1.5f, 6.0f, SoundType.TUFF, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:tuff", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.TUFF, MapColor.TERRACOTTA_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:tuff", ColorType.RAW)
     ),
     CALCITE_ORE("calcite_%s_ore", Category.ORE,
-            new OreProps(0.75f, 0.75f, SoundType.CALCITE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:calcite", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.CALCITE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:calcite", ColorType.RAW)
+    ),
+    DRIPSTONE_ORE("dripstone_%s_ore", Category.ORE,
+            new OreProps(3.0f, 3.0f, SoundType.DRIPSTONE_BLOCK, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:dripstone_block", ColorType.RAW)
     ),
     BASALT_ORE("basalt_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.BASALT, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:basalt", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.BASALT, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:basalt", ColorType.RAW)
     ),
     SMOOTH_BASALT_ORE("smooth_basalt_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.BASALT, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:smooth_basalt", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.BASALT, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:smooth_basalt", ColorType.RAW)
     ),
     NETHERRACK_ORE("netherrack_%s_ore", Category.ORE,
-            new OreProps(0.4f, 0.4f, SoundType.NETHERRACK, MapColor.NETHER, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:netherrack", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.NETHERRACK, MapColor.NETHER, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:netherrack", ColorType.RAW)
     ),
     END_STONE_ORE("end_stone_%s_ore", Category.ORE,
-            new OreProps(3.0f, 9.0f, SoundType.STONE, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:end_stone", ColorType.RAW)
+            new OreProps(4.5f, 9.0f, SoundType.STONE, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:end_stone", ColorType.RAW)
+    ),
+    OBSIDIAN_ORE("obsidian_%s_ore", Category.ORE,
+            new OreProps(1200.0f, 1200.0f, SoundType.STONE, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 3, Materials.Tools.PICKAXE, "minecraft:obsidian", ColorType.RAW)
     ),
     DIRT_ORE("dirt_%s_ore", Category.ORE,
-            new OreProps(0.6f, 0.6f, SoundType.GRASS, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:dirt", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.GRASS, MapColor.DIRT, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:dirt", ColorType.RAW)
     ),
     GRAVEL_ORE("gravel_%s_ore", Category.FALLING_ORE,
-            new OreProps(0.6f, 0.6f, SoundType.GRAVEL, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:gravel", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.GRAVEL, MapColor.STONE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:gravel", ColorType.RAW)
     ),
-    SAND_ORE("sandstone_%s_ore", Category.ORE,
-            new OreProps(0.5f, 0.5f, SoundType.SAND, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:sandstone", ColorType.RAW)
+    SANDSTONE_ORE("sandstone_%s_ore", Category.ORE,
+            new OreProps(3.0f, 3.0f, SoundType.SAND, MapColor.SAND, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:sandstone", ColorType.RAW)
     ),
-    RED_SAND_ORE("red_sandstone_%s_ore", Category.FALLING_ORE,
-            new OreProps(0.5f, 0.5f, SoundType.SAND, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:red_sandstone", ColorType.RAW)
+    RED_SANDSTONE_ORE("red_sandstone_%s_ore", Category.ORE,
+            new OreProps(3.0f, 3.0f, SoundType.SAND, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:red_sandstone", ColorType.RAW)
+    ),
+    CLAY_ORE("clay_%s_ore", Category.ORE,
+            new OreProps(3.0f, 3.0f, SoundType.SAND, MapColor.CLAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:clay", ColorType.RAW)
     ),
     SOUL_SAND_ORE("soul_sand_%s_ore", Category.ORE,
-            new OreProps(0.5f, 0.5f, SoundType.SOUL_SAND, MapColor.COLOR_BROWN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:soul_sand", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.SOUL_SAND, MapColor.COLOR_BROWN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:soul_sand", ColorType.RAW)
     ),
     SOUL_SOIL_ORE("soul_soil_%s_ore", Category.ORE,
-            new OreProps(0.5f, 0.5f, SoundType.SOUL_SOIL, MapColor.COLOR_BROWN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:soul_soil", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.SOUL_SOIL, MapColor.COLOR_BROWN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.SHOVEL, "minecraft:soul_soil", ColorType.RAW)
     ),
     TERRACOTTA_ORE("terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:terracotta", ColorType.RAW)
     ),
     WHITE_TERRACOTTA_ORE("white_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:white_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.TERRACOTTA_WHITE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:white_terracotta", ColorType.RAW)
     ),
     ORANGE_TERRACOTTA_ORE("orange_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:orange_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_ORANGE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:orange_terracotta", ColorType.RAW)
     ),
     MAGENTA_TERRACOTTA_ORE("magenta_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_MAGENTA, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:magenta_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_MAGENTA, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:magenta_terracotta", ColorType.RAW)
     ),
     LIGHT_BLUE_TERRACOTTA_ORE("light_blue_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_LIGHT_BLUE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:light_blue_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_LIGHT_BLUE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:light_blue_terracotta", ColorType.RAW)
     ),
     YELLOW_TERRACOTTA_ORE("yellow_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_YELLOW, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:yellow_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_YELLOW, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:yellow_terracotta", ColorType.RAW)
     ),
     LIME_TERRACOTTA_ORE("lime_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_LIGHT_GREEN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:lime_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_LIGHT_GREEN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:lime_terracotta", ColorType.RAW)
     ),
     PINK_TERRACOTTA_ORE("pink_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_PINK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:pink_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_PINK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:pink_terracotta", ColorType.RAW)
     ),
     GRAY_TERRACOTTA_ORE("gray_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:gray_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:gray_terracotta", ColorType.RAW)
     ),
     LIGHT_GRAY_TERRACOTTA_ORE("light_gray_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_LIGHT_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:light_gray_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_LIGHT_GRAY, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:light_gray_terracotta", ColorType.RAW)
     ),
     CYAN_TERRACOTTA_ORE("cyan_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_CYAN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:cyan_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_CYAN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:cyan_terracotta", ColorType.RAW)
     ),
     PURPLE_TERRACOTTA_ORE("purple_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_PURPLE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:purple_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_PURPLE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:purple_terracotta", ColorType.RAW)
     ),
     BLUE_TERRACOTTA_ORE("blue_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_BLUE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:blue_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_BLUE, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:blue_terracotta", ColorType.RAW)
     ),
     BROWN_TERRACOTTA_ORE("brown_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_BROWN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:brown_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_BROWN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:brown_terracotta", ColorType.RAW)
     ),
     GREEN_TERRACOTTA_ORE("green_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_GREEN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:green_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_GREEN, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:green_terracotta", ColorType.RAW)
     ),
     RED_TERRACOTTA_ORE("red_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_RED, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:red_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_RED, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:red_terracotta", ColorType.RAW)
     ),
     BLACK_TERRACOTTA_ORE("black_terracotta_%s_ore", Category.ORE,
-            new OreProps(1.25f, 4.2f, SoundType.STONE, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:black_terracotta", ColorType.RAW)
+            new OreProps(3.0f, 3.0f, SoundType.STONE, MapColor.COLOR_BLACK, NoteBlockInstrument.BASEDRUM, null, null, 0, Materials.Tools.PICKAXE, "minecraft:black_terracotta", ColorType.RAW)
     );
 
 
