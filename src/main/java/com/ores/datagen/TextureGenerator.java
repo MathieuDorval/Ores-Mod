@@ -25,7 +25,7 @@ public class TextureGenerator {
     // --- Paths ---
     private static String RAW_PALETTE_PATH;
     private static String BASE_PALETTE_PATH;
-    private static String ORE_OVERLAY_VARIANT_PATH;
+    private static String ORE_MATERIAL_PATH;
     private static String ORE_MINECRAFT_VARIANT_PATH;
     private static String STORAGE_BLOCK_VARIANT_PATH;
     private static String ITEM_VARIANT_PATH;
@@ -81,28 +81,26 @@ public class TextureGenerator {
         Variants.OreProps oreProps = Objects.requireNonNull(variant.getOreProps());
 
         try {
+            // 1. Charger la texture de la pierre de base (ex: stone.png, deepslate.png)
             String baseStoneName = oreProps.idStone().replace("minecraft:", "") + ".png";
             File baseStoneFile = Paths.get(ORE_MINECRAFT_VARIANT_PATH, baseStoneName).toFile();
             if (!baseStoneFile.exists()) return;
             BufferedImage baseImage = ImageIO.read(baseStoneFile);
 
-            Materials.OreOverlayTexture overlayTexture = material.getOreProps().overlay();
-            if (overlayTexture == null) return;
-            String overlayName = overlayTexture.name().toLowerCase() + ".png";
-            File overlayFile = new File(ORE_OVERLAY_VARIANT_PATH, overlayName);
-            if (!overlayFile.exists()) {
-                System.err.printf("  -> WARNING: Overlay '%s' not found. Skipping '%s'.%n", overlayName, outputFileName);
+            // 2. Charger la texture du minerai pré-colorée (ex: coal.png, iron.png)
+            String oreMaterialName = material.getOreProps().overlay().name().toLowerCase() + ".png";
+            File oreMaterialFile = new File(ORE_MATERIAL_PATH, oreMaterialName);
+            if (!oreMaterialFile.exists()) {
+                System.err.printf("  -> WARNING: Ore material texture '%s' not found in '%s'. Skipping '%s'.%n", oreMaterialName, ORE_MATERIAL_PATH, outputFileName);
                 return;
             }
-            BufferedImage oreOverlay = ImageIO.read(overlayFile);
+            BufferedImage oreTexture = ImageIO.read(oreMaterialFile);
 
-            Map<Integer, Color> colorMap = getColorMap(materialName, oreProps.colorType());
-            if (colorMap == null) return;
-
+            // 3. Superposer la texture du minerai sur la pierre
             BufferedImage finalImage = new BufferedImage(baseImage.getWidth(), baseImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = finalImage.createGraphics();
             g.drawImage(baseImage, 0, 0, null);
-            g.drawImage(colorizeImage(oreOverlay, colorMap), 0, 0, null);
+            g.drawImage(oreTexture, 0, 0, null); // On dessine directement, sans recoloration
             g.dispose();
 
             saveImage(finalImage, outputFileName, OUTPUT_BLOCK_PATH);
@@ -238,7 +236,7 @@ public class TextureGenerator {
         String MATERIAL_PALETTE_BASE_PATH = Paths.get(resourcesPath, "material", "palette").toString();
         RAW_PALETTE_PATH = Paths.get(MATERIAL_PALETTE_BASE_PATH, "raw").toString();
         BASE_PALETTE_PATH = Paths.get(MATERIAL_PALETTE_BASE_PATH, "base").toString();
-        ORE_OVERLAY_VARIANT_PATH = Paths.get(resourcesPath, "variant", "ore", "overlay").toString();
+        ORE_MATERIAL_PATH = Paths.get(resourcesPath, "material", "ore").toString();
         String ORE_VARIANT_PATH = Paths.get(resourcesPath, "variant", "ore").toString();
         ORE_MINECRAFT_VARIANT_PATH = Paths.get(ORE_VARIANT_PATH, "minecraft").toString();
         STORAGE_BLOCK_VARIANT_PATH = Paths.get(resourcesPath, "variant", "storage_block").toString();
