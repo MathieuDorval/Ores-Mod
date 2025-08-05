@@ -56,7 +56,7 @@ public class Registry {
                         blockConstructor = (category == Variants.Category.FALLING_BLOCK) ?
                                 (props) -> new CustomBlocks.CustomFallingBlock(props, Objects.requireNonNullElse(variant.getBlockProps().dropsOnFalling(), true)) :
                                 Block::new;
-                    } else { // ORE ou FALLING_ORE
+                    } else {
                         combineOreProperties(blockProperties, material.getBlockProps(), Objects.requireNonNull(variant.getOreProps()));
                         combineItemProperties(blockItemProperties, material.getItemProps(), null);
 
